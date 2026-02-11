@@ -943,6 +943,11 @@
                 screen.classList.remove('active');
             });
             document.getElementById(screenId).classList.add('active');
+
+            // Auto-load weather when weather screen is shown
+            if (screenId === 'weather-screen') {
+                loadWeather();
+            }
         }
 
         // Role selection
@@ -985,15 +990,105 @@
             tg.showAlert(currentLanguage === 'en' ? 'Registration successful!' : 'ការចុះឈ្មោះបានជោគជ័យ!');
         });
 
-        // Weather (simulated data)
-        function loadWeather() {
-            document.getElementById('weather-location').textContent = userData.location || 'Phnom Penh, Cambodia';
-            document.getElementById('weather-temp').textContent = '32°C';
-            document.getElementById('weather-condition').textContent = currentLanguage === 'en' ? 'Partly Cloudy' : 'មានពពកមួយផ្នែក';
-            document.getElementById('weather-humidity').textContent = '75%';
-            document.getElementById('weather-wind').textContent = '15 km/h';
-            document.getElementById('weather-rainfall').textContent = '2 mm';
-            document.getElementById('weather-forecast').textContent = currentLanguage === 'en' ? 'Rain expected' : 'រំពឹងថាមានភ្លៀង';
+        // Weather API Configuration
+        const WEATHER_API_KEY = 'c4b344785f4af31d272229a65ee4ee26';
+
+        // Weather icons mapping
+        const weatherIcons = {
+            'Clear': '☀️',
+            'Clouds': '☁️',
+            'Rain': '🌧️',
+            'Drizzle': '🌦️',
+            'Thunderstorm': '⛈️',
+            'Snow': '❄️',
+            'Mist': '🌫️',
+            'Fog': '🌫️',
+            'Haze': '🌫️'
+        };
+
+        // Weather condition translations
+        const weatherTranslations = {
+            'Clear': { en: 'Clear Sky', km: 'មេឃស្អាត' },
+            'Clouds': { en: 'Cloudy', km: 'មានពពក' },
+            'Rain': { en: 'Rainy', km: 'មានភ្លៀង' },
+            'Drizzle': { en: 'Light Rain', km: 'ភ្លៀងៗ' },
+            'Thunderstorm': { en: 'Thunderstorm', km: 'ព្យុះផ្គរ' },
+            'Snow': { en: 'Snow', km: 'ព្រិល' },
+            'Mist': { en: 'Misty', km: 'មានអ័ព្ទ' },
+            'Fog': { en: 'Foggy', km: 'អ័ព្ទក្រាស់' },
+            'Haze': { en: 'Hazy', km: 'អ័ព្ទស្រាល' }
+        };
+
+        // Load real weather data from OpenWeatherMap API
+        async function loadWeather() {
+            const location = userData.location || 'Phnom Penh, Cambodia';
+            document.getElementById('weather-location').textContent = location;
+
+            // Show loading state
+            document.getElementById('weather-temp').textContent = '--°C';
+            document.getElementById('weather-condition').textContent = currentLanguage === 'en' ? 'Loading...' : 'កំពុងផ្ទុក...';
+
+            try {
+                // Get coordinates from location name
+                const geoResponse = await fetch(
+                    `https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(location)}&limit=1&appid=${WEATHER_API_KEY}`
+                );
+                const geoData = await geoResponse.json();
+
+                if (geoData.length === 0) {
+                    throw new Error('Location not found');
+                }
+
+                const { lat, lon } = geoData[0];
+
+                // Get weather data
+                const weatherResponse = await fetch(
+                    `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${WEATHER_API_KEY}`
+                );
+                const weatherData = await weatherResponse.json();
+
+                // Update UI with real data
+                const temp = Math.round(weatherData.main.temp);
+                const condition = weatherData.weather[0].main;
+                const humidity = weatherData.main.humidity;
+                const windSpeed = Math.round(weatherData.wind.speed * 3.6); // Convert m/s to km/h
+                const rainfall = weatherData.rain ? weatherData.rain['1h'] || 0 : 0;
+
+                document.getElementById('weather-temp').textContent = `${temp}°C`;
+                document.getElementById('weather-icon').textContent = weatherIcons[condition] || '⛅';
+
+                // Translate condition
+                const conditionText = weatherTranslations[condition]
+                    ? weatherTranslations[condition][currentLanguage]
+                    : condition;
+                document.getElementById('weather-condition').textContent = conditionText;
+
+                document.getElementById('weather-humidity').textContent = `${humidity}%`;
+                document.getElementById('weather-wind').textContent = `${windSpeed} km/h`;
+                document.getElementById('weather-rainfall').textContent = `${rainfall} mm`;
+
+                // Forecast based on current conditions
+                let forecast = '';
+                if (condition === 'Rain' || condition === 'Drizzle' || condition === 'Thunderstorm') {
+                    forecast = currentLanguage === 'en' ? 'Continued rain expected' : 'រំពឹងថាភ្លៀងបន្ត';
+                } else if (condition === 'Clouds') {
+                    forecast = currentLanguage === 'en' ? 'Cloudy conditions' : 'អាកាសមានពពក';
+                } else if (condition === 'Clear') {
+                    forecast = currentLanguage === 'en' ? 'Clear and sunny' : 'ស្អាតនិងមានពន្លឺថ្ងៃ';
+                } else {
+                    forecast = currentLanguage === 'en' ? 'Variable conditions' : 'អាកាសធាតុប្រែប្រួល';
+                }
+                document.getElementById('weather-forecast').textContent = forecast;
+
+            } catch (error) {
+                console.error('Weather error:', error);
+                // Fallback to default location if error
+                document.getElementById('weather-location').textContent = 'Phnom Penh, Cambodia';
+                document.getElementById('weather-temp').textContent = '--°C';
+                document.getElementById('weather-condition').textContent = currentLanguage === 'en'
+                    ? 'Unable to load weather. Please try again.'
+                    : 'មិនអាចផ្ទុកអាកាសធាតុបានទេ។ សូមព្យាយាមម្តងទៀត។';
+            }
         }
 
         // Booking steps
