@@ -3,9 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"="width=device-width, initial-scale=1.0">
-    <title>Agritech Pioneers</title>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agritech Pioneers - Empowering Farmers</title>
     <style>
         * {
             margin: 0;
@@ -14,57 +13,68 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: var(--tg-theme-bg-color, #ffffff);
-            color: var(--tg-theme-text-color, #000000);
-            padding: 16px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
+            padding: 20px;
         }
 
         .container {
-            max-width: 600px;
+            max-width: 480px;
             margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
         }
 
         .header {
-            text-align: center;
-            margin-bottom: 24px;
-            padding: 20px;
-            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
-            border-radius: 16px;
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
             color: white;
+            padding: 30px 20px;
+            text-align: center;
         }
 
         .header h1 {
-            font-size: 24px;
+            font-size: 28px;
             margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
 
         .header p {
             font-size: 14px;
-            opacity: 0.9;
+            opacity: 0.95;
         }
 
-        .language-selector {
+        .lang-switcher {
             display: flex;
-            gap: 8px;
+            gap: 15px;
             justify-content: center;
-            margin-bottom: 20px;
+            margin-top: 15px;
         }
 
         .lang-btn {
-            padding: 8px 16px;
-            border: 2px solid #22c55e;
-            background: white;
-            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 13px;
             transition: all 0.3s;
         }
 
+        .lang-btn:hover,
         .lang-btn.active {
-            background: #22c55e;
-            color: white;
+            background: white;
+            color: #4CAF50;
+        }
+
+        .content {
+            padding: 30px 20px;
         }
 
         .screen {
@@ -88,41 +98,54 @@
             }
         }
 
+        .role-cards {
+            display: grid;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
         .role-card {
-            background: white;
-            border: 2px solid #e5e7eb;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 12px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border: 2px solid transparent;
+            border-radius: 15px;
+            padding: 25px;
             cursor: pointer;
             transition: all 0.3s;
+            text-align: center;
         }
 
         .role-card:hover {
-            border-color: #22c55e;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(34, 197, 94, 0.1);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border-color: #4CAF50;
+        }
+
+        .role-card .icon {
+            font-size: 48px;
+            margin-bottom: 10px;
         }
 
         .role-card h3 {
             font-size: 18px;
+            color: #333;
             margin-bottom: 8px;
-            color: #22c55e;
         }
 
         .role-card p {
-            font-size: 14px;
-            color: #6b7280;
+            font-size: 13px;
+            color: #666;
+            line-height: 1.5;
         }
 
         .form-group {
-            margin-bottom: 16px;
+            margin-bottom: 20px;
         }
 
         .form-group label {
             display: block;
+            font-weight: 600;
+            color: #333;
             margin-bottom: 8px;
-            font-weight: 500;
             font-size: 14px;
         }
 
@@ -130,184 +153,300 @@
         .form-group select,
         .form-group textarea {
             width: 100%;
-            padding: 12px;
-            border: 2px solid #e5e7eb;
-            border-radius: 8px;
-            font-size: 14px;
-            transition: border-color 0.3s;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 15px;
+            transition: all 0.3s;
+            font-family: inherit;
         }
 
         .form-group input:focus,
         .form-group select:focus,
         .form-group textarea:focus {
             outline: none;
-            border-color: #22c55e;
+            border-color: #4CAF50;
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+        }
+
+        .location-display {
+            background: #f0f8f0;
+            border: 2px solid #4CAF50;
+            border-radius: 10px;
+            padding: 12px 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 15px;
+            color: #333;
         }
 
         .btn {
             width: 100%;
-            padding: 14px;
-            background: #22c55e;
-            color: white;
+            padding: 15px;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: all 0.3s;
+            margin-top: 10px;
         }
 
-        .btn:hover {
-            background: #16a34a;
+        .btn-primary {
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(76, 175, 80, 0.4);
         }
 
         .btn-secondary {
-            background: #6b7280;
+            background: #f5f5f5;
+            color: #666;
         }
 
         .btn-secondary:hover {
-            background: #4b5563;
+            background: #e0e0e0;
         }
 
-        .feature-grid {
+        .service-grid {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 12px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
             margin-top: 20px;
         }
 
-        .feature-card {
-            background: white;
-            border: 2px solid #e5e7eb;
-            border-radius: 12px;
-            padding: 20px;
+        .service-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 25px 15px;
+            text-align: center;
             cursor: pointer;
             transition: all 0.3s;
+            border: none;
         }
 
-        .feature-card:hover {
-            border-color: #22c55e;
-            transform: translateY(-2px);
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
         }
 
-        .feature-card .icon {
-            font-size: 32px;
-            margin-bottom: 12px;
+        .service-card .icon {
+            font-size: 36px;
+            margin-bottom: 10px;
         }
 
-        .feature-card h3 {
-            font-size: 18px;
-            margin-bottom: 8px;
+        .service-card h3 {
+            font-size: 16px;
+            margin-bottom: 5px;
         }
 
-        .feature-card p {
-            font-size: 14px;
-            color: #6b7280;
+        .service-card p {
+            font-size: 12px;
+            opacity: 0.9;
         }
 
         .weather-card {
-            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            background: linear-gradient(135deg, #56CCF2 0%, #2F80ED 100%);
             color: white;
-            border-radius: 16px;
-            padding: 24px;
-            margin-bottom: 16px;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            margin: 20px 0;
         }
 
-        .weather-main {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .weather-temp {
+        .weather-card .temp {
             font-size: 48px;
-            font-weight: bold;
+            font-weight: 700;
+            margin: 15px 0;
         }
 
-        .weather-icon {
-            font-size: 64px;
+        .weather-card .location {
+            font-size: 18px;
+            margin-bottom: 10px;
+            opacity: 0.95;
         }
 
         .weather-details {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 25px;
         }
 
-        .weather-detail-item {
+        .weather-detail {
             background: rgba(255, 255, 255, 0.2);
-            padding: 12px;
-            border-radius: 8px;
+            padding: 15px;
+            border-radius: 10px;
         }
 
-        .weather-detail-item strong {
-            display: block;
-            margin-bottom: 4px;
+        .weather-detail .label {
             font-size: 12px;
+            opacity: 0.8;
+            margin-bottom: 5px;
         }
 
-        .location-btn {
+        .weather-detail .value {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .steps {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .steps::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #e0e0e0;
+            z-index: 0;
+        }
+
+        .step {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #e0e0e0;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            margin-bottom: 16px;
-        }
-
-        .location-btn::before {
-            content: "📍";
-            font-size: 20px;
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 8px;
-            background: #e5e7eb;
-            border-radius: 4px;
-            margin-bottom: 20px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: #22c55e;
-            transition: width 0.3s;
-        }
-
-        .step-indicator {
-            text-align: center;
-            margin-bottom: 16px;
+            font-weight: 600;
             font-size: 14px;
-            color: #6b7280;
+            color: #999;
+            position: relative;
+            z-index: 1;
         }
 
-        .voice-recorder {
+        .step.active {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .step.completed {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .success-message {
             text-align: center;
             padding: 40px 20px;
         }
 
-        .voice-btn {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background: #22c55e;
-            color: white;
-            border: none;
-            font-size: 32px;
-            cursor: pointer;
-            transition: all 0.3s;
-            margin: 0 auto;
-            display: block;
+        .success-message .icon {
+            font-size: 64px;
+            color: #4CAF50;
+            margin-bottom: 20px;
         }
 
-        .voice-btn:hover {
+        .success-message h2 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .success-message p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .video-list {
+            display: grid;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .video-item {
+            background: #f5f5f5;
+            border-radius: 15px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .video-item:hover {
+            border-color: #4CAF50;
+            transform: translateX(5px);
+        }
+
+        .video-item h3 {
+            color: #333;
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .video-item p {
+            color: #666;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .faq-list {
+            margin-top: 20px;
+        }
+
+        .faq-item {
+            background: #f5f5f5;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 15px 20px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 15px 20px;
+            max-height: 200px;
+        }
+
+        .record-button {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border: none;
+            color: white;
+            font-size: 48px;
+            cursor: pointer;
+            margin: 30px auto;
+            display: block;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(245, 87, 108, 0.3);
+        }
+
+        .record-button:hover {
             transform: scale(1.1);
         }
 
-        .voice-btn.recording {
-            background: #ef4444;
-            animation: pulse 1s infinite;
+        .record-button.recording {
+            animation: pulse 1.5s infinite;
         }
 
         @keyframes pulse {
@@ -318,86 +457,59 @@
             }
 
             50% {
-                transform: scale(1.05);
+                transform: scale(1.1);
             }
         }
 
         .back-btn {
-            background: transparent;
-            border: 2px solid #22c55e;
-            color: #22c55e;
-            margin-top: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            color: #666;
+            text-decoration: none;
+            margin-bottom: 20px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
         }
 
         .back-btn:hover {
-            background: #22c55e;
-            color: white;
+            color: #4CAF50;
         }
 
-        .success-message {
+        .loading {
             text-align: center;
-            padding: 40px 20px;
+            padding: 40px;
+            color: #666;
         }
 
-        .success-icon {
-            font-size: 64px;
-            margin-bottom: 16px;
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #4CAF50;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
         }
 
-        .completed-badge {
-            display: inline-block;
-            background: #22c55e;
-            color: white;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            margin-left: 8px;
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
 
-        .video-container {
-            position: relative;
-            width: 100%;
-            padding-bottom: 56.25%;
-            background: #000;
-            border-radius: 12px;
-            overflow: hidden;
-            margin-bottom: 16px;
-        }
-
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-
-        .faq-item {
-            background: white;
-            border: 2px solid #e5e7eb;
-            border-radius: 8px;
-            padding: 16px;
-            margin-bottom: 12px;
-        }
-
-        .faq-question {
-            font-weight: 600;
-            margin-bottom: 8px;
-            cursor: pointer;
+        .btn-group {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            gap: 10px;
         }
 
-        .faq-answer {
-            display: none;
-            color: #6b7280;
-            font-size: 14px;
-            margin-top: 8px;
-        }
-
-        .faq-answer.show {
-            display: block;
+        .btn-group .btn {
+            flex: 1;
         }
     </style>
 </head>
@@ -405,780 +517,500 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1 id="app-title">🌾 Agritech Pioneers</h1>
-            <p id="app-subtitle">Empowering Farmers with Technology</p>
-        </div>
-
-        <div class="language-selector">
-            <button class="lang-btn active" onclick="setLanguage('en')">English</button>
-            <button class="lang-btn" onclick="setLanguage('km')">ភាសាខ្មែរ</button>
-        </div>
-
-        <!-- Welcome Screen -->
-        <div id="welcome-screen" class="screen active">
-            <div style="text-align: center; margin-bottom: 24px;">
-                <h2 id="welcome-title">Welcome to Agritech Pioneers!</h2>
-                <p id="welcome-desc" style="margin-top: 12px; color: #6b7280;">Please select your role to continue</p>
-            </div>
-
-            <div class="role-card" onclick="selectRole('farmer')">
-                <h3 id="role-farmer-title">👨‍🌾 Normal Farmer</h3>
-                <p id="role-farmer-desc">Access weather updates, book services, and get processing guidance</p>
-            </div>
-
-            <div class="role-card" onclick="selectRole('provider')">
-                <h3 id="role-provider-title">🚜 Service Provider / Middleman</h3>
-                <p id="role-provider-desc">Offer equipment and services to farmers in your area</p>
-            </div>
-
-            <div class="role-card" onclick="selectRole('manager')">
-                <h3 id="role-manager-title">📊 Data Manager</h3>
-                <p id="role-manager-desc">Access analytics and manage agricultural data</p>
+            <h1>🌾 Agritech Pioneers</h1>
+            <p>Empowering Farmers with Technology</p>
+            <div class="lang-switcher">
+                <button class="lang-btn active" onclick="setLanguage('en')">English</button>
+                <button class="lang-btn" onclick="setLanguage('km')">ភាសាខ្មែរ</button>
             </div>
         </div>
 
-        <!-- Farmer Registration Screen -->
-        <div id="registration-screen" class="screen">
-            <h2 id="reg-title">Farmer Registration</h2>
-            <p id="reg-subtitle" style="margin-bottom: 20px; color: #6b7280;">Please provide your information</p>
+        <div class="content">
+            <!-- Welcome Screen -->
+            <div id="welcome" class="screen active">
+                <h2 style="text-align: center; color: #333; margin-bottom: 10px;">Welcome to Agritech Pioneers!</h2>
+                <p style="text-align: center; color: #666; margin-bottom: 20px;">Please select your role to continue</p>
 
-            <form id="registration-form">
-                <div class="form-group">
-                    <label id="label-name">Full Name</label>
-                    <input type="text" id="farmer-name" required>
+                <div class="role-cards">
+                    <div class="role-card" onclick="showScreen('register')">
+                        <div class="icon">👨‍🌾</div>
+                        <h3>Normal Farmer</h3>
+                        <p>Access weather updates, book services, and get processing guidance</p>
+                    </div>
+                    <div class="role-card" onclick="alert('Service Provider portal coming soon!')">
+                        <div class="icon">🚜</div>
+                        <h3>Service Provider / Middleman</h3>
+                        <p>Offer equipment and services to farmers in your area</p>
+                    </div>
+                    <div class="role-card" onclick="alert('Data Manager portal coming soon!')">
+                        <div class="icon">📊</div>
+                        <h3>Data Manager</h3>
+                        <p>Access analytics and manage agricultural data</p>
+                    </div>
                 </div>
+            </div>
 
-                <div class="form-group">
-                    <label id="label-phone">Phone Number</label>
-                    <input type="tel" id="farmer-phone" required>
-                </div>
+            <!-- Registration Screen -->
+            <div id="register" class="screen">
+                <span class="back-btn" onclick="showScreen('welcome')">← Back</span>
+                <h2 style="color: #333; margin-bottom: 20px;">Farmer Registration</h2>
 
-                <div class="form-group">
-                    <label id="label-location">Farm Location</label>
-                    <button type="button" class="btn location-btn" onclick="shareLocation()" id="btn-location">
-                        Share Location via Telegram
+                <form id="registrationForm" onsubmit="submitRegistration(event)">
+                    <div class="form-group">
+                        <label>Full Name *</label>
+                        <input type="text" placeholder="Enter your full name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Phone Number *</label>
+                        <input type="tel" placeholder="+855 12 345 678" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Farm Location</label>
+                        <div class="location-display">
+                            <span style="font-size: 20px;">📍</span>
+                            <span>Phnom Penh, Cambodia</span>
+                        </div>
+                        <p style="font-size: 12px; color: #999; margin-top: 8px;">Default location is set to Phnom Penh
+                        </p>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Complete Registration</button>
+                </form>
+            </div>
+
+            <!-- Dashboard Screen -->
+            <div id="dashboard" class="screen">
+                <h2 style="color: #333; margin-bottom: 10px;">Welcome Back!</h2>
+                <p style="color: #666; margin-bottom: 20px;">Choose a service below</p>
+
+                <div class="service-grid">
+                    <button class="service-card" onclick="showScreen('weather')">
+                        <div class="icon">🌤️</div>
+                        <h3>Weather Updates</h3>
+                        <p>Get real-time local weather</p>
                     </button>
-                    <input type="text" id="location-display" readonly placeholder="No location shared yet">
+
+                    <button class="service-card" onclick="showScreen('booking')">
+                        <div class="icon">📅</div>
+                        <h3>Book Services</h3>
+                        <p>Request equipment & services</p>
+                    </button>
+
+                    <button class="service-card" onclick="showScreen('guidance')">
+                        <div class="icon">🎓</div>
+                        <h3>Processing Guidance</h3>
+                        <p>Post-harvest practices</p>
+                    </button>
+
+                    <button class="service-card" onclick="alert('Community forum coming soon!')">
+                        <div class="icon">👥</div>
+                        <h3>Community</h3>
+                        <p>Connect with farmers</p>
+                    </button>
                 </div>
 
-                <button type="submit" class="btn" id="btn-register">Complete Registration</button>
-            </form>
-
-            <button class="btn back-btn" onclick="showScreen('welcome-screen')" id="btn-back">Back</button>
-        </div>
-
-        <!-- Farmer Dashboard -->
-        <div id="dashboard-screen" class="screen">
-            <h2 id="dashboard-welcome">Welcome Back! <span id="farmer-name-display"></span></h2>
-            <p id="dashboard-subtitle" style="margin-bottom: 20px; color: #6b7280;">Choose a service below</p>
-
-            <div class="feature-grid">
-                <div class="feature-card" onclick="showScreen('weather-screen')">
-                    <div class="icon">🌤️</div>
-                    <h3 id="feature-weather-title">Weather Updates</h3>
-                    <p id="feature-weather-desc">Get real-time local weather information</p>
-                </div>
-
-                <div class="feature-card" onclick="showScreen('booking-screen')">
-                    <div class="icon">📅</div>
-                    <h3 id="feature-booking-title">Book Services</h3>
-                    <p id="feature-booking-desc">Request equipment and farm services</p>
-                </div>
-
-                <div class="feature-card" onclick="showScreen('processing-screen')">
-                    <div class="icon">🎓</div>
-                    <h3 id="feature-processing-title">Processing Guidance</h3>
-                    <p id="feature-processing-desc">Get help with post-harvest practices</p>
-                </div>
+                <button class="btn btn-secondary" onclick="showScreen('welcome')"
+                    style="margin-top: 30px;">Logout</button>
             </div>
-        </div>
 
-        <!-- Weather Screen -->
-        <div id="weather-screen" class="screen">
-            <h2 id="weather-title">Weather Updates</h2>
+            <!-- Weather Screen -->
+            <div id="weather" class="screen">
+                <span class="back-btn" onclick="showScreen('dashboard')">← Back to Dashboard</span>
+                <h2 style="color: #333; margin-bottom: 20px;">Weather Updates</h2>
 
-            <div class="weather-card">
-                <div class="weather-main">
-                    <div>
-                        <div id="weather-location" style="font-size: 18px; margin-bottom: 8px;">Loading...</div>
-                        <div class="weather-temp" id="weather-temp">--°C</div>
-                        <div id="weather-condition">Loading weather data...</div>
-                    </div>
-                    <div class="weather-icon" id="weather-icon">⛅</div>
-                </div>
+                <div class="weather-card">
+                    <div class="location">📍 Phnom Penh, Cambodia</div>
+                    <div style="font-size: 64px; margin: 10px 0;">⛅</div>
+                    <div class="temp" id="temperature">--°C</div>
+                    <div id="condition">Loading weather data...</div>
 
-                <div class="weather-details">
-                    <div class="weather-detail-item">
-                        <strong id="label-humidity">Humidity</strong>
-                        <div id="weather-humidity">--%</div>
-                    </div>
-                    <div class="weather-detail-item">
-                        <strong id="label-wind">Wind Speed</strong>
-                        <div id="weather-wind">-- km/h</div>
-                    </div>
-                    <div class="weather-detail-item">
-                        <strong id="label-rainfall">Rainfall</strong>
-                        <div id="weather-rainfall">-- mm</div>
-                    </div>
-                    <div class="weather-detail-item">
-                        <strong id="label-forecast">Forecast</strong>
-                        <div id="weather-forecast">--</div>
+                    <div class="weather-details">
+                        <div class="weather-detail">
+                            <div class="label">Humidity</div>
+                            <div class="value" id="humidity">--%</div>
+                        </div>
+                        <div class="weather-detail">
+                            <div class="label">Wind Speed</div>
+                            <div class="value" id="wind">-- km/h</div>
+                        </div>
+                        <div class="weather-detail">
+                            <div class="label">Rainfall</div>
+                            <div class="value" id="rainfall">-- mm</div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="completed-badge">✓ <span id="badge-completed">Completed</span></div>
+            <!-- Booking Screen -->
+            <div id="booking" class="screen">
+                <span class="back-btn" onclick="showScreen('dashboard')">← Back to Dashboard</span>
+                <h2 style="color: #333; margin-bottom: 20px;">Book Services</h2>
 
-            <button class="btn back-btn" onclick="showScreen('dashboard-screen')" id="btn-back-dashboard">Back to
-                Dashboard</button>
-        </div>
+                <div class="steps">
+                    <div class="step active" id="step1">1</div>
+                    <div class="step" id="step2">2</div>
+                    <div class="step" id="step3">3</div>
+                    <div class="step" id="step4">4</div>
+                    <div class="step" id="step5">5</div>
+                    <div class="step" id="step6">6</div>
+                </div>
 
-        <!-- Booking Screen -->
-        <div id="booking-screen" class="screen">
-            <h2 id="booking-title">Book Services</h2>
+                <form id="bookingForm">
+                    <div class="booking-step" id="bookingStep1">
+                        <div class="form-group">
+                            <label>Confirm Your Name *</label>
+                            <input type="text" placeholder="Enter your name" required>
+                        </div>
+                        <button type="button" class="btn btn-primary" onclick="nextBookingStep(2)">Next</button>
+                    </div>
 
-            <div class="progress-bar">
-                <div class="progress-fill" id="booking-progress" style="width: 0%"></div>
+                    <div class="booking-step" id="bookingStep2" style="display: none;">
+                        <div class="form-group">
+                            <label>Age *</label>
+                            <input type="number" placeholder="Enter your age" min="18" max="100" required>
+                        </div>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-secondary"
+                                onclick="nextBookingStep(1)">Previous</button>
+                            <button type="button" class="btn btn-primary" onclick="nextBookingStep(3)">Next</button>
+                        </div>
+                    </div>
+
+                    <div class="booking-step" id="bookingStep3" style="display: none;">
+                        <div class="form-group">
+                            <label>Full Address *</label>
+                            <textarea placeholder="Enter your full address" rows="3" required></textarea>
+                        </div>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-secondary"
+                                onclick="nextBookingStep(2)">Previous</button>
+                            <button type="button" class="btn btn-primary" onclick="nextBookingStep(4)">Next</button>
+                        </div>
+                    </div>
+
+                    <div class="booking-step" id="bookingStep4" style="display: none;">
+                        <div class="form-group">
+                            <label>Farm Size (hectares) *</label>
+                            <input type="number" placeholder="Enter farm size" min="0.1" step="0.1" required>
+                        </div>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-secondary"
+                                onclick="nextBookingStep(3)">Previous</button>
+                            <button type="button" class="btn btn-primary" onclick="nextBookingStep(5)">Next</button>
+                        </div>
+                    </div>
+
+                    <div class="booking-step" id="bookingStep5" style="display: none;">
+                        <div class="form-group">
+                            <label>Required Equipment/Service *</label>
+                            <select required>
+                                <option value="">-- Select --</option>
+                                <option value="tractor">Tractor</option>
+                                <option value="harvester">Harvester</option>
+                                <option value="plowing">Plowing Service</option>
+                                <option value="irrigation">Irrigation System</option>
+                                <option value="fertilizer">Fertilizer Application</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-secondary"
+                                onclick="nextBookingStep(4)">Previous</button>
+                            <button type="button" class="btn btn-primary" onclick="nextBookingStep(6)">Next</button>
+                        </div>
+                    </div>
+
+                    <div class="booking-step" id="bookingStep6" style="display: none;">
+                        <div class="form-group">
+                            <label>Preferred Service Date *</label>
+                            <input type="date" required>
+                        </div>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-secondary"
+                                onclick="nextBookingStep(5)">Previous</button>
+                            <button type="button" class="btn btn-primary" onclick="submitBooking()">Submit
+                                Booking</button>
+                        </div>
+                    </div>
+                </form>
             </div>
-            <div class="step-indicator" id="booking-step">Step 1 of 6</div>
 
-            <form id="booking-form">
-                <!-- Step 1: Name -->
-                <div class="booking-step-content" id="step-1">
-                    <div class="form-group">
-                        <label id="label-confirm-name">Confirm Your Name</label>
-                        <input type="text" id="booking-name" required>
-                    </div>
-                    <button type="button" class="btn" onclick="nextBookingStep()" id="btn-next">Next</button>
-                </div>
-
-                <!-- Step 2: Age -->
-                <div class="booking-step-content" id="step-2" style="display: none;">
-                    <div class="form-group">
-                        <label id="label-age">Age</label>
-                        <input type="number" id="booking-age" min="18" max="100" required>
-                    </div>
-                    <button type="button" class="btn" onclick="nextBookingStep()">Next</button>
-                    <button type="button" class="btn back-btn" onclick="prevBookingStep()"
-                        id="btn-previous">Previous</button>
-                </div>
-
-                <!-- Step 3: Address -->
-                <div class="booking-step-content" id="step-3" style="display: none;">
-                    <div class="form-group">
-                        <label id="label-address">Full Address</label>
-                        <textarea id="booking-address" rows="3" required></textarea>
-                    </div>
-                    <button type="button" class="btn" onclick="nextBookingStep()">Next</button>
-                    <button type="button" class="btn back-btn" onclick="prevBookingStep()">Previous</button>
-                </div>
-
-                <!-- Step 4: Farm Size -->
-                <div class="booking-step-content" id="step-4" style="display: none;">
-                    <div class="form-group">
-                        <label id="label-farm-size">Farm Size (hectares)</label>
-                        <input type="number" id="booking-farm-size" step="0.1" required>
-                    </div>
-                    <button type="button" class="btn" onclick="nextBookingStep()">Next</button>
-                    <button type="button" class="btn back-btn" onclick="prevBookingStep()">Previous</button>
-                </div>
-
-                <!-- Step 5: Equipment -->
-                <div class="booking-step-content" id="step-5" style="display: none;">
-                    <div class="form-group">
-                        <label id="label-equipment">Required Equipment/Service</label>
-                        <select id="booking-equipment" required>
-                            <option value="">-- Select --</option>
-                            <option value="tractor" id="opt-tractor">Tractor</option>
-                            <option value="harvester" id="opt-harvester">Harvester</option>
-                            <option value="plowing" id="opt-plowing">Plowing Service</option>
-                            <option value="irrigation" id="opt-irrigation">Irrigation System</option>
-                            <option value="fertilizer" id="opt-fertilizer">Fertilizer Application</option>
-                            <option value="other" id="opt-other">Other</option>
-                        </select>
-                    </div>
-                    <button type="button" class="btn" onclick="nextBookingStep()">Next</button>
-                    <button type="button" class="btn back-btn" onclick="prevBookingStep()">Previous</button>
-                </div>
-
-                <!-- Step 6: Date -->
-                <div class="booking-step-content" id="step-6" style="display: none;">
-                    <div class="form-group">
-                        <label id="label-date">Preferred Service Date</label>
-                        <input type="date" id="booking-date" required>
-                    </div>
-                    <button type="submit" class="btn" id="btn-submit-booking">Submit Booking</button>
-                    <button type="button" class="btn back-btn" onclick="prevBookingStep()">Previous</button>
-                </div>
-            </form>
-
-            <button class="btn back-btn" onclick="showScreen('dashboard-screen')"
-                style="margin-top: 12px;">Cancel</button>
-        </div>
-
-        <!-- Booking Success Screen -->
-        <div id="booking-success-screen" class="screen">
-            <div class="success-message">
-                <div class="success-icon">✅</div>
-                <h2 id="success-title">Booking Confirmed!</h2>
-                <p id="success-message" style="margin: 16px 0; color: #6b7280;">Your service request has been submitted
-                    successfully. We will contact you soon.</p>
-                <div class="completed-badge">✓ Completed</div>
-            </div>
-            <button class="btn" onclick="showScreen('dashboard-screen')" id="btn-back-home">Back to Home</button>
-        </div>
-
-        <!-- Processing Guidance Screen -->
-        <div id="processing-screen" class="screen">
-            <h2 id="processing-title">Processing Guidance</h2>
-            <p id="processing-subtitle" style="margin-bottom: 20px; color: #6b7280;">Get help with post-harvest
-                practices</p>
-
-            <div class="feature-grid">
-                <div class="feature-card" onclick="showScreen('voice-question-screen')">
-                    <div class="icon">🎤</div>
-                    <h3 id="voice-question-title">Ask via Voice</h3>
-                    <p id="voice-question-desc">Record your question and get answers</p>
-                </div>
-
-                <div class="feature-card" onclick="showScreen('video-guides-screen')">
-                    <div class="icon">📹</div>
-                    <h3 id="video-guides-title">Video Guides</h3>
-                    <p id="video-guides-desc">Watch instructional videos</p>
-                </div>
-
-                <div class="feature-card" onclick="showScreen('faq-screen')">
-                    <div class="icon">❓</div>
-                    <h3 id="faq-title">Common Questions</h3>
-                    <p id="faq-desc">Browse frequently asked questions</p>
+            <!-- Booking Success Screen -->
+            <div id="bookingSuccess" class="screen">
+                <div class="success-message">
+                    <div class="icon">✅</div>
+                    <h2>Booking Confirmed!</h2>
+                    <p>Your service request has been submitted successfully. We will contact you soon.</p>
+                    <button class="btn btn-primary" onclick="showScreen('dashboard')" style="margin-top: 30px;">Back to
+                        Dashboard</button>
                 </div>
             </div>
 
-            <button class="btn back-btn" onclick="showScreen('dashboard-screen')">Back to Dashboard</button>
-        </div>
+            <!-- Processing Guidance Screen -->
+            <div id="guidance" class="screen">
+                <span class="back-btn" onclick="showScreen('dashboard')">← Back to Dashboard</span>
+                <h2 style="color: #333; margin-bottom: 10px;">Processing Guidance</h2>
+                <p style="color: #666; margin-bottom: 20px;">Get help with post-harvest practices</p>
 
-        <!-- Voice Question Screen -->
-        <div id="voice-question-screen" class="screen">
-            <h2 id="voice-rec-title">Record Your Question</h2>
-            <p id="voice-rec-subtitle" style="margin-bottom: 20px; text-align: center; color: #6b7280;">Tap the button
-                to start recording</p>
+                <div class="service-grid">
+                    <button class="service-card" onclick="showScreen('voiceRecord')">
+                        <div class="icon">🎤</div>
+                        <h3>Ask via Voice</h3>
+                        <p>Record your question</p>
+                    </button>
 
-            <div class="voice-recorder">
-                <button class="voice-btn" id="voice-btn" onclick="toggleRecording()">🎤</button>
-                <p id="recording-status" style="margin-top: 20px; color: #6b7280;">Ready to record</p>
+                    <button class="service-card" onclick="showScreen('videos')">
+                        <div class="icon">📹</div>
+                        <h3>Video Guides</h3>
+                        <p>Watch tutorials</p>
+                    </button>
+
+                    <button class="service-card" onclick="showScreen('faq')" style="grid-column: span 2;">
+                        <div class="icon">❓</div>
+                        <h3>Common Questions</h3>
+                        <p>Browse frequently asked questions</p>
+                    </button>
+                </div>
             </div>
 
-            <div id="voice-response"
-                style="display: none; margin-top: 24px; padding: 20px; background: white; border-radius: 12px; border: 2px solid #e5e7eb;">
-                <h3 id="response-title">Response:</h3>
-                <p id="response-text" style="margin-top: 12px; line-height: 1.6;"></p>
-                <div class="completed-badge" style="margin-top: 12px;">✓ Completed</div>
+            <!-- Voice Recording Screen -->
+            <div id="voiceRecord" class="screen">
+                <span class="back-btn" onclick="showScreen('guidance')">← Back</span>
+                <h2 style="color: #333; margin-bottom: 10px; text-align: center;">Record Your Question</h2>
+                <p style="color: #666; text-align: center; margin-bottom: 20px;">Tap the button to start recording</p>
+
+                <button class="record-button" id="recordBtn" onclick="toggleRecording()">🎤</button>
+                <p id="recordStatus" style="text-align: center; color: #666;">Ready to record</p>
+
+                <div id="recordResponse"
+                    style="display: none; margin-top: 30px; padding: 20px; background: #f5f5f5; border-radius: 10px;">
+                    <h3 style="color: #333; margin-bottom: 10px;">Response:</h3>
+                    <p style="color: #666; line-height: 1.6;">This is where the AI response will appear after processing
+                        your voice question.</p>
+                </div>
             </div>
 
-            <button class="btn back-btn" onclick="showScreen('processing-screen')">Back</button>
-        </div>
+            <!-- Video Guides Screen -->
+            <div id="videos" class="screen">
+                <span class="back-btn" onclick="showScreen('guidance')">← Back</span>
+                <h2 style="color: #333; margin-bottom: 20px;">Instructional Videos</h2>
 
-        <!-- Video Guides Screen -->
-        <div id="video-guides-screen" class="screen">
-            <h2 id="video-title">Instructional Videos</h2>
+                <div class="video-list">
+                    <div class="video-item" onclick="alert('Video player would open here')">
+                        <h3>🌾 Rice Drying Techniques</h3>
+                        <p>Learn proper methods for drying rice after harvest to prevent mold and maintain quality.</p>
+                    </div>
 
-            <div style="margin-top: 20px;">
-                <h3 id="video1-title">Rice Drying Techniques</h3>
-                <div class="video-container">
-                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
+                    <div class="video-item" onclick="alert('Video player would open here')">
+                        <h3>📦 Proper Storage Methods</h3>
+                        <p>Discover best practices for storing crops to maximize shelf life and minimize losses.</p>
+                    </div>
+
+                    <div class="video-item" onclick="alert('Video player would open here')">
+                        <h3>🌱 Seed Selection Guide</h3>
+                        <p>How to choose the right seeds for your soil type and climate conditions.</p>
+                    </div>
+
+                    <div class="video-item" onclick="alert('Video player would open here')">
+                        <h3>💧 Efficient Irrigation</h3>
+                        <p>Optimize water usage and improve crop yield with modern irrigation techniques.</p>
+                    </div>
                 </div>
-                <p id="video1-desc" style="color: #6b7280; margin-bottom: 24px;">Learn proper methods for drying rice
-                    after harvest to prevent mold and maintain quality.</p>
-
-                <h3 id="video2-title">Proper Storage Methods</h3>
-                <div class="video-container">
-                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
-                </div>
-                <p id="video2-desc" style="color: #6b7280; margin-bottom: 24px;">Discover best practices for storing
-                    crops to maximize shelf life and minimize losses.</p>
-
-                <div class="completed-badge">✓ Completed</div>
             </div>
 
-            <button class="btn back-btn" onclick="showScreen('processing-screen')">Back</button>
-        </div>
+            <!-- FAQ Screen -->
+            <div id="faq" class="screen">
+                <span class="back-btn" onclick="showScreen('guidance')">← Back</span>
+                <h2 style="color: #333; margin-bottom: 20px;">Common Questions</h2>
 
-        <!-- FAQ Screen -->
-        <div id="faq-screen" class="screen">
-            <h2 id="faq-screen-title">Common Questions</h2>
-
-            <div style="margin-top: 20px;">
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFAQ(1)">
-                        <span id="faq1-q">How long should I dry my rice?</span>
-                        <span>▼</span>
+                <div class="faq-list">
+                    <div class="faq-item" onclick="toggleFaq(this)">
+                        <div class="faq-question">
+                            How long should I dry my rice?
+                            <span>▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            Rice should be dried until moisture content reaches 14% or lower. This typically takes 2-3
+                            days in good sun conditions. Use a moisture meter for accurate measurements.
+                        </div>
                     </div>
-                    <div class="faq-answer" id="faq-1">
-                        <span id="faq1-a">Rice should be dried until moisture content reaches 14% or lower. This
-                            typically takes 2-3 days in good sun conditions.</span>
+
+                    <div class="faq-item" onclick="toggleFaq(this)">
+                        <div class="faq-question">
+                            What temperature is best for crop storage?
+                            <span>▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            Most crops should be stored at 10-15°C with humidity below 60% to prevent spoilage. Ensure
+                            proper ventilation in storage areas.
+                        </div>
+                    </div>
+
+                    <div class="faq-item" onclick="toggleFaq(this)">
+                        <div class="faq-question">
+                            How do I prevent pest infestation?
+                            <span>▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            Ensure proper cleaning of storage areas, use sealed containers, and maintain low moisture
+                            levels. Regular inspection is crucial. Consider using natural pest deterrents.
+                        </div>
+                    </div>
+
+                    <div class="faq-item" onclick="toggleFaq(this)">
+                        <div class="faq-question">
+                            When is the best time to apply fertilizer?
+                            <span>▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            Apply fertilizer during early morning or late evening to minimize evaporation. For rice,
+                            split applications work best: at planting, tillering, and flowering stages.
+                        </div>
                     </div>
                 </div>
-
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFAQ(2)">
-                        <span id="faq2-q">What temperature is best for crop storage?</span>
-                        <span>▼</span>
-                    </div>
-                    <div class="faq-answer" id="faq-2">
-                        <span id="faq2-a">Most crops should be stored at 10-15°C with humidity below 60% to prevent
-                            spoilage.</span>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFAQ(3)">
-                        <span id="faq3-q">How do I prevent pest infestation?</span>
-                        <span>▼</span>
-                    </div>
-                    <div class="faq-answer" id="faq-3">
-                        <span id="faq3-a">Ensure proper cleaning of storage areas, use sealed containers, and maintain
-                            low moisture levels. Regular inspection is crucial.</span>
-                    </div>
-                </div>
-
-                <div class="completed-badge">✓ Completed</div>
             </div>
-
-            <button class="btn back-btn" onclick="showScreen('processing-screen')">Back</button>
         </div>
     </div>
 
     <script>
-        // Initialize Telegram WebApp
-        let tg = window.Telegram.WebApp;
-        tg.expand();
-        tg.ready();
-
-        // State management
         let currentLanguage = 'en';
-        let currentBookingStep = 1;
         let isRecording = false;
-        let userData = {};
+        let currentBookingStep = 1;
 
-        // Translations
-        const translations = {
-            en: {
-                'app-title': '🌾 Agritech Pioneers',
-                'app-subtitle': 'Empowering Farmers with Technology',
-                'welcome-title': 'Welcome to Agritech Pioneers!',
-                'welcome-desc': 'Please select your role to continue',
-                'role-farmer-title': '👨‍🌾 Normal Farmer',
-                'role-farmer-desc': 'Access weather updates, book services, and get processing guidance',
-                'role-provider-title': '🚜 Service Provider / Middleman',
-                'role-provider-desc': 'Offer equipment and services to farmers in your area',
-                'role-manager-title': '📊 Data Manager',
-                'role-manager-desc': 'Access analytics and manage agricultural data',
-                'reg-title': 'Farmer Registration',
-                'reg-subtitle': 'Please provide your information',
-                'label-name': 'Full Name',
-                'label-phone': 'Phone Number',
-                'label-location': 'Farm Location',
-                'btn-location': 'Share Location via Telegram',
-                'btn-register': 'Complete Registration',
-                'btn-back': 'Back',
-                'dashboard-welcome': 'Welcome Back!',
-                'dashboard-subtitle': 'Choose a service below',
-                'feature-weather-title': 'Weather Updates',
-                'feature-weather-desc': 'Get real-time local weather information',
-                'feature-booking-title': 'Book Services',
-                'feature-booking-desc': 'Request equipment and farm services',
-                'feature-processing-title': 'Processing Guidance',
-                'feature-processing-desc': 'Get help with post-harvest practices',
-                'weather-title': 'Weather Updates',
-                'label-humidity': 'Humidity',
-                'label-wind': 'Wind Speed',
-                'label-rainfall': 'Rainfall',
-                'label-forecast': 'Forecast',
-                'badge-completed': 'Completed',
-                'btn-back-dashboard': 'Back to Dashboard',
-                'booking-title': 'Book Services',
-                'label-confirm-name': 'Confirm Your Name',
-                'label-age': 'Age',
-                'label-address': 'Full Address',
-                'label-farm-size': 'Farm Size (hectares)',
-                'label-equipment': 'Required Equipment/Service',
-                'label-date': 'Preferred Service Date',
-                'btn-next': 'Next',
-                'btn-previous': 'Previous',
-                'btn-submit-booking': 'Submit Booking',
-                'opt-tractor': 'Tractor',
-                'opt-harvester': 'Harvester',
-                'opt-plowing': 'Plowing Service',
-                'opt-irrigation': 'Irrigation System',
-                'opt-fertilizer': 'Fertilizer Application',
-                'opt-other': 'Other',
-                'success-title': 'Booking Confirmed!',
-                'success-message': 'Your service request has been submitted successfully. We will contact you soon.',
-                'btn-back-home': 'Back to Home',
-                'processing-title': 'Processing Guidance',
-                'processing-subtitle': 'Get help with post-harvest practices',
-                'voice-question-title': 'Ask via Voice',
-                'voice-question-desc': 'Record your question and get answers',
-                'video-guides-title': 'Video Guides',
-                'video-guides-desc': 'Watch instructional videos',
-                'faq-title': 'Common Questions',
-                'faq-desc': 'Browse frequently asked questions',
-                'voice-rec-title': 'Record Your Question',
-                'voice-rec-subtitle': 'Tap the button to start recording',
-                'response-title': 'Response:',
-                'video-title': 'Instructional Videos',
-                'video1-title': 'Rice Drying Techniques',
-                'video1-desc': 'Learn proper methods for drying rice after harvest to prevent mold and maintain quality.',
-                'video2-title': 'Proper Storage Methods',
-                'video2-desc': 'Discover best practices for storing crops to maximize shelf life and minimize losses.',
-                'faq-screen-title': 'Common Questions',
-                'faq1-q': 'How long should I dry my rice?',
-                'faq1-a': 'Rice should be dried until moisture content reaches 14% or lower. This typically takes 2-3 days in good sun conditions.',
-                'faq2-q': 'What temperature is best for crop storage?',
-                'faq2-a': 'Most crops should be stored at 10-15°C with humidity below 60% to prevent spoilage.',
-                'faq3-q': 'How do I prevent pest infestation?',
-                'faq3-a': 'Ensure proper cleaning of storage areas, use sealed containers, and maintain low moisture levels. Regular inspection is crucial.'
-            },
-            km: {
-                'app-title': '🌾 អ្នកត្រួសត្រាយកសិកម្ម',
-                'app-subtitle': 'បង្កើនសមត្ថភាពកសិករដោយបច្ចេកវិទ្យា',
-                'welcome-title': 'សូមស្វាគមន៍មកកាន់ Agritech Pioneers!',
-                'welcome-desc': 'សូមជ្រើសរើសតួនាទីរបស់អ្នកដើម្បីបន្ត',
-                'role-farmer-title': '👨‍🌾 កសិករធម្មតា',
-                'role-farmer-desc': 'ចូលប្រើព័ត៌មានអាកាសធាតុ កក់សេវា និងការណែនាំកែច្នៃ',
-                'role-provider-title': '🚜 អ្នកផ្តល់សេវា / អន្តរការី',
-                'role-provider-desc': 'ផ្តល់ឧបករណ៍ និងសេវាកម្មដល់កសិករក្នុងតំបន់របស់អ្នក',
-                'role-manager-title': '📊 អ្នកគ្រប់គ្រងទិន្នន័យ',
-                'role-manager-desc': 'ចូលប្រើការវិភាគ និងគ្រប់គ្រងទិន្នន័យកសិកម្ម',
-                'reg-title': 'ការចុះឈ្មោះកសិករ',
-                'reg-subtitle': 'សូមផ្តល់ព័ត៌មានរបស់អ្នក',
-                'label-name': 'ឈ្មោះពេញ',
-                'label-phone': 'លេខទូរស័ព្ទ',
-                'label-location': 'ទីតាំងកសិដ្ឋាន',
-                'btn-location': 'ចែករំលែកទីតាំងតាម Telegram',
-                'btn-register': 'បញ្ចប់ការចុះឈ្មោះ',
-                'btn-back': 'ថយក្រោយ',
-                'dashboard-welcome': 'សូមស្វាគមន៍ការត្រឡប់មកវិញ!',
-                'dashboard-subtitle': 'ជ្រើសរើសសេវាខាងក្រោម',
-                'feature-weather-title': 'ព័ត៌មានអាកាសធាតុ',
-                'feature-weather-desc': 'ទទួលព័ត៌មានអាកាសធាតុក្នុងតំបន់ពេលវេលាជាក់ស្តែង',
-                'feature-booking-title': 'កក់សេវា',
-                'feature-booking-desc': 'ស្នើសុំឧបករណ៍ និងសេវាកម្មកសិដ្ឋាន',
-                'feature-processing-title': 'ការណែនាំកែច្នៃ',
-                'feature-processing-desc': 'ទទួលជំនួយអំពីការអនុវត្តក្រោយប្រមូលផល',
-                'weather-title': 'ព័ត៌មានអាកាសធាតុ',
-                'label-humidity': 'សំណើម',
-                'label-wind': 'ល្បឿនខ្យល់',
-                'label-rainfall': 'បរិមាណទឹកភ្លៀង',
-                'label-forecast': 'ការព្យាករណ៍',
-                'badge-completed': 'បានបញ្ចប់',
-                'btn-back-dashboard': 'ត្រឡប់ទៅផ្ទាំងគ្រប់គ្រង',
-                'booking-title': 'កក់សេវា',
-                'label-confirm-name': 'បញ្ជាក់ឈ្មោះរបស់អ្នក',
-                'label-age': 'អាយុ',
-                'label-address': 'អាសយដ្ឋានពេញលេញ',
-                'label-farm-size': 'ទំហំកសិដ្ឋាន (ហិកតា)',
-                'label-equipment': 'ឧបករណ៍/សេវាដែលត្រូវការ',
-                'label-date': 'កាលបរិច្ឆេទសេវាដែលចង់បាន',
-                'btn-next': 'បន្ទាប់',
-                'btn-previous': 'មុន',
-                'btn-submit-booking': 'ដាក់ស្នើការកក់',
-                'opt-tractor': 'ត្រាក់ទ័រ',
-                'opt-harvester': 'ម៉ាស៊ីនច្រូតកាត់',
-                'opt-plowing': 'សេវាភ្ជួរដី',
-                'opt-irrigation': 'ប្រព័ន្ធស្រោចស្រព',
-                'opt-fertilizer': 'ការលាបជី',
-                'opt-other': 'ផ្សេងៗ',
-                'success-title': 'បានបញ្ជាក់ការកក់!',
-                'success-message': 'សំណើសេវារបស់អ្នកត្រូវបានដាក់ស្នើដោយជោគជ័យ។ យើងនឹងទាក់ទងអ្នកឆាប់ៗនេះ។',
-                'btn-back-home': 'ត្រឡប់ទៅទំព័រដើម',
-                'processing-title': 'ការណែនាំកែច្នៃ',
-                'processing-subtitle': 'ទទួលជំនួយអំពីការអនុវត្តក្រោយប្រមូលផល',
-                'voice-question-title': 'សួរតាមសំឡេង',
-                'voice-question-desc': 'ថតសំណួររបស់អ្នក ហើយទទួលចម្លើយ',
-                'video-guides-title': 'វីដេអូណែនាំ',
-                'video-guides-desc': 'មើលវីដេអូណែនាំ',
-                'faq-title': 'សំណួរទូទៅ',
-                'faq-desc': 'រកមើលសំណួរដែលសួរញឹកញាប់',
-                'voice-rec-title': 'ថតសំណួររបស់អ្នក',
-                'voice-rec-subtitle': 'ចុចប៊ូតុងដើម្បីចាប់ផ្តើមថត',
-                'response-title': 'ចម្លើយ:',
-                'video-title': 'វីដេអូណែនាំ',
-                'video1-title': 'បច្ចេកទេសសម្ងួតស្រូវ',
-                'video1-desc': 'រៀនវិធីត្រឹមត្រូវក្នុងការសម្ងួតស្រូវបន្ទាប់ពីប្រមូលផល ដើម្បីការពារផ្សិត និងរក្សាគុណភាព។',
-                'video2-title': 'វិធីទុកផលិតផលត្រឹមត្រូវ',
-                'video2-desc': 'ស្វែងយល់អំពីការអនុវត្តល្អបំផុតសម្រាប់ការទុកផលិតផល ដើម្បីបង្កើនអាយុកាល និងកាត់បន្ថយការខាតបង់។',
-                'faq-screen-title': 'សំណួរទូទៅ',
-                'faq1-q': 'ខ្ញុំគួរសម្ងួតស្រូវរយៈពេលប៉ុន្មាន?',
-                'faq1-a': 'ស្រូវគួរត្រូវបានសម្ងួតរហូតដល់មាតិកាសំណើមឈានដល់ 14% ឬទាបជាងនេះ។ នេះជាធម្មតាត្រូវការពេល 2-3 ថ្ងៃក្នុងលក្ខខណ្ឌព្រះអាទិត្យល្អ។',
-                'faq2-q': 'សីតុណ្ហភាពប៉ុន្មានល្អបំផុតសម្រាប់ការទុកផលិតផល?',
-                'faq2-a': 'ផលិតផលភាគច្រើនគួរត្រូវបានទុកនៅសីតុណ្ហភាព 10-15°C ជាមួយសំណើមក្រោម 60% ដើម្បីការពារការខូច។',
-                'faq3-q': 'តើខ្ញុំការពារការឆ្លងសត្វល្អិតយ៉ាងដូចម្តេច?',
-                'faq3-a': 'ធានាការសម្អាតតំបន់ផ្ទុកឲ្យបានត្រឹមត្រូវ ប្រើធុងបិទជិត និងរក្សាកម្រិតសំណើមឲ្យទាប។ ការត្រួតពិនិត្យជាទៀងទាត់គឺសំខាន់។'
-            }
-        };
-
-        // Language switching
-        function setLanguage(lang) {
-            currentLanguage = lang;
-            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-
-            // Update all translatable elements
-            Object.keys(translations[lang]).forEach(key => {
-                const element = document.getElementById(key);
-                if (element) {
-                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-                        element.placeholder = translations[lang][key];
-                    } else {
-                        element.textContent = translations[lang][key];
-                    }
-                }
-            });
-        }
-
-        // Screen navigation
         function showScreen(screenId) {
             document.querySelectorAll('.screen').forEach(screen => {
                 screen.classList.remove('active');
             });
             document.getElementById(screenId).classList.add('active');
 
-            // Auto-load weather when weather screen is shown
-            if (screenId === 'weather-screen') {
-                loadWeather();
+            // Load weather data when weather screen is shown
+            if (screenId === 'weather') {
+                loadWeatherData();
+            }
+
+            // Reset booking form
+            if (screenId === 'booking') {
+                currentBookingStep = 1;
+                showBookingStep(1);
             }
         }
 
-        // Role selection
-        function selectRole(role) {
-            if (role === 'farmer') {
-                showScreen('registration-screen');
-            } else {
-                tg.showAlert('This feature is coming soon!');
-            }
-        }
-
-        // Location sharing
-        function shareLocation() {
-            if (tg.initDataUnsafe?.user) {
-                tg.showPopup({
-                    title: 'Share Location',
-                    message: 'Please share your farm location using Telegram location feature',
-                    buttons: [{ type: 'ok' }]
-                });
-
-                // Simulate location received
-                setTimeout(() => {
-                    document.getElementById('location-display').value = 'Phnom Penh, Cambodia';
-                }, 1000);
-            }
-        }
-
-        // Registration
-        document.getElementById('registration-form').addEventListener('submit', function (e) {
-            e.preventDefault();
-
-            userData.name = document.getElementById('farmer-name').value;
-            userData.phone = document.getElementById('farmer-phone').value;
-            userData.location = document.getElementById('location-display').value;
-
-            document.getElementById('farmer-name-display').textContent = userData.name;
-            document.getElementById('booking-name').value = userData.name;
-
-            showScreen('dashboard-screen');
-            tg.showAlert(currentLanguage === 'en' ? 'Registration successful!' : 'ការចុះឈ្មោះបានជោគជ័យ!');
-        });
-
-        // Weather API Configuration
-        const WEATHER_API_KEY = 'c4b344785f4af31d272229a65ee4ee26';
-
-        // Weather icons mapping
-        const weatherIcons = {
-            'Clear': '☀️',
-            'Clouds': '☁️',
-            'Rain': '🌧️',
-            'Drizzle': '🌦️',
-            'Thunderstorm': '⛈️',
-            'Snow': '❄️',
-            'Mist': '🌫️',
-            'Fog': '🌫️',
-            'Haze': '🌫️'
-        };
-
-        // Weather condition translations
-        const weatherTranslations = {
-            'Clear': { en: 'Clear Sky', km: 'មេឃស្អាត' },
-            'Clouds': { en: 'Cloudy', km: 'មានពពក' },
-            'Rain': { en: 'Rainy', km: 'មានភ្លៀង' },
-            'Drizzle': { en: 'Light Rain', km: 'ភ្លៀងៗ' },
-            'Thunderstorm': { en: 'Thunderstorm', km: 'ព្យុះផ្គរ' },
-            'Snow': { en: 'Snow', km: 'ព្រិល' },
-            'Mist': { en: 'Misty', km: 'មានអ័ព្ទ' },
-            'Fog': { en: 'Foggy', km: 'អ័ព្ទក្រាស់' },
-            'Haze': { en: 'Hazy', km: 'អ័ព្ទស្រាល' }
-        };
-
-        // Load real weather data from OpenWeatherMap API
-        async function loadWeather() {
-            const location = userData.location || 'Phnom Penh, Cambodia';
-            document.getElementById('weather-location').textContent = location;
-
-            // Show loading state
-            document.getElementById('weather-temp').textContent = '--°C';
-            document.getElementById('weather-condition').textContent = currentLanguage === 'en' ? 'Loading...' : 'កំពុងផ្ទុក...';
-
-            try {
-                // Get coordinates from location name
-                const geoResponse = await fetch(
-                    `https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(location)}&limit=1&appid=${WEATHER_API_KEY}`
-                );
-                const geoData = await geoResponse.json();
-
-                if (geoData.length === 0) {
-                    throw new Error('Location not found');
-                }
-
-                const { lat, lon } = geoData[0];
-
-                // Get weather data
-                const weatherResponse = await fetch(
-                    `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${WEATHER_API_KEY}`
-                );
-                const weatherData = await weatherResponse.json();
-
-                // Update UI with real data
-                const temp = Math.round(weatherData.main.temp);
-                const condition = weatherData.weather[0].main;
-                const humidity = weatherData.main.humidity;
-                const windSpeed = Math.round(weatherData.wind.speed * 3.6); // Convert m/s to km/h
-                const rainfall = weatherData.rain ? weatherData.rain['1h'] || 0 : 0;
-
-                document.getElementById('weather-temp').textContent = `${temp}°C`;
-                document.getElementById('weather-icon').textContent = weatherIcons[condition] || '⛅';
-
-                // Translate condition
-                const conditionText = weatherTranslations[condition]
-                    ? weatherTranslations[condition][currentLanguage]
-                    : condition;
-                document.getElementById('weather-condition').textContent = conditionText;
-
-                document.getElementById('weather-humidity').textContent = `${humidity}%`;
-                document.getElementById('weather-wind').textContent = `${windSpeed} km/h`;
-                document.getElementById('weather-rainfall').textContent = `${rainfall} mm`;
-
-                // Forecast based on current conditions
-                let forecast = '';
-                if (condition === 'Rain' || condition === 'Drizzle' || condition === 'Thunderstorm') {
-                    forecast = currentLanguage === 'en' ? 'Continued rain expected' : 'រំពឹងថាភ្លៀងបន្ត';
-                } else if (condition === 'Clouds') {
-                    forecast = currentLanguage === 'en' ? 'Cloudy conditions' : 'អាកាសមានពពក';
-                } else if (condition === 'Clear') {
-                    forecast = currentLanguage === 'en' ? 'Clear and sunny' : 'ស្អាតនិងមានពន្លឺថ្ងៃ';
-                } else {
-                    forecast = currentLanguage === 'en' ? 'Variable conditions' : 'អាកាសធាតុប្រែប្រួល';
-                }
-                document.getElementById('weather-forecast').textContent = forecast;
-
-            } catch (error) {
-                console.error('Weather error:', error);
-                // Fallback to default location if error
-                document.getElementById('weather-location').textContent = 'Phnom Penh, Cambodia';
-                document.getElementById('weather-temp').textContent = '--°C';
-                document.getElementById('weather-condition').textContent = currentLanguage === 'en'
-                    ? 'Unable to load weather. Please try again.'
-                    : 'មិនអាចផ្ទុកអាកាសធាតុបានទេ។ សូមព្យាយាមម្តងទៀត។';
-            }
-        }
-
-        // Booking steps
-        function nextBookingStep() {
-            if (currentBookingStep < 6) {
-                // Validate current step
-                const currentStepElement = document.getElementById(`step-${currentBookingStep}`);
-                const input = currentStepElement.querySelector('input, select, textarea');
-
-                if (input && !input.value) {
-                    tg.showAlert(currentLanguage === 'en' ? 'Please fill in this field' : 'សូមបំពេញវាលនេះ');
-                    return;
-                }
-
-                document.getElementById(`step-${currentBookingStep}`).style.display = 'none';
-                currentBookingStep++;
-                document.getElementById(`step-${currentBookingStep}`).style.display = 'block';
-
-                updateBookingProgress();
-            }
-        }
-
-        function prevBookingStep() {
-            if (currentBookingStep > 1) {
-                document.getElementById(`step-${currentBookingStep}`).style.display = 'none';
-                currentBookingStep--;
-                document.getElementById(`step-${currentBookingStep}`).style.display = 'block';
-
-                updateBookingProgress();
-            }
-        }
-
-        function updateBookingProgress() {
-            const progress = (currentBookingStep / 6) * 100;
-            document.getElementById('booking-progress').style.width = `${progress}%`;
-            document.getElementById('booking-step').textContent = `${currentLanguage === 'en' ? 'Step' : 'ជំហាន'} ${currentBookingStep} ${currentLanguage === 'en' ? 'of' : 'ក្នុងចំណោម'} 6`;
-        }
-
-        // Booking submission
-        document.getElementById('booking-form').addEventListener('submit', function (e) {
-            e.preventDefault();
-
-            // Reset for next booking
-            currentBookingStep = 1;
-            document.querySelectorAll('.booking-step-content').forEach((step, index) => {
-                step.style.display = index === 0 ? 'block' : 'none';
+        function setLanguage(lang) {
+            currentLanguage = lang;
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
             });
-            updateBookingProgress();
+            event.target.classList.add('active');
+            // In a real app, this would translate all text
+            alert(`Language changed to ${lang === 'en' ? 'English' : 'ភាសាខ្មែរ'}`);
+        }
 
-            showScreen('booking-success-screen');
-        });
+        function submitRegistration(event) {
+            event.preventDefault();
+            const form = event.target;
+            const formData = new FormData(form);
 
-        // Voice recording
+            // Show loading
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Registering...';
+            submitBtn.disabled = true;
+
+            // Simulate API call
+            setTimeout(() => {
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+                showScreen('dashboard');
+            }, 1500);
+        }
+
+        function loadWeatherData() {
+            // Simulate loading weather data
+            setTimeout(() => {
+                document.getElementById('temperature').textContent = '32°C';
+                document.getElementById('condition').textContent = 'Partly Cloudy';
+                document.getElementById('humidity').textContent = '68%';
+                document.getElementById('wind').textContent = '12 km/h';
+                document.getElementById('rainfall').textContent = '0 mm';
+            }, 1000);
+        }
+
+        function nextBookingStep(step) {
+            // Hide all steps
+            document.querySelectorAll('.booking-step').forEach(s => {
+                s.style.display = 'none';
+            });
+
+            // Show current step
+            document.getElementById(`bookingStep${step}`).style.display = 'block';
+
+            // Update step indicators
+            for (let i = 1; i <= 6; i++) {
+                const stepEl = document.getElementById(`step${i}`);
+                stepEl.classList.remove('active', 'completed');
+                if (i < step) {
+                    stepEl.classList.add('completed');
+                } else if (i === step) {
+                    stepEl.classList.add('active');
+                }
+            }
+
+            currentBookingStep = step;
+        }
+
+        function showBookingStep(step) {
+            nextBookingStep(step);
+        }
+
+        function submitBooking() {
+            // Simulate submission
+            document.querySelectorAll('.booking-step').forEach(s => {
+                s.style.display = 'none';
+            });
+
+            setTimeout(() => {
+                showScreen('bookingSuccess');
+            }, 500);
+        }
+
         function toggleRecording() {
-            const btn = document.getElementById('voice-btn');
-            const status = document.getElementById('recording-status');
+            isRecording = !isRecording;
+            const btn = document.getElementById('recordBtn');
+            const status = document.getElementById('recordStatus');
+            const response = document.getElementById('recordResponse');
 
-            if (!isRecording) {
-                isRecording = true;
+            if (isRecording) {
                 btn.classList.add('recording');
-                status.textContent = currentLanguage === 'en' ? 'Recording...' : 'កំពុងថត...';
+                status.textContent = 'Recording... Tap to stop';
+                status.style.color = '#f5576c';
+            } else {
+                btn.classList.remove('recording');
+                status.textContent = 'Processing your question...';
 
-                // Simulate recording
+                // Simulate processing
                 setTimeout(() => {
-                    isRecording = false;
-                    btn.classList.remove('recording');
-                    status.textContent = currentLanguage === 'en' ? 'Processing your question...' : 'កំពុងដំណើរការសំណួររបស់អ្នក...';
-
-                    // Show response
-                    setTimeout(() => {
-                        document.getElementById('voice-response').style.display = 'block';
-                        document.getElementById('response-text').textContent = currentLanguage === 'en'
-                            ? 'To properly dry rice, spread it in a thin layer under direct sunlight. Turn it regularly and ensure moisture content drops to 14% before storage. This usually takes 2-3 days in good weather.'
-                            : 'ដើម្បីសម្ងួតស្រូវឲ្យបានត្រឹមត្រូវ ផ្សព្វផ្សាយវាជាស្រទាប់ស្តើងនៅក្រោមពន្លឺថ្ងៃផ្ទាល់។ បង្វិលវាជាប្រចាំ និងធានាថាមាតិកាសំណើមធ្លាក់ចុះដល់ 14% មុនពេលទុក។ នេះជាធម្មតាត្រូវការពេល 2-3 ថ្ងៃក្នុងអាកាសធាតុល្អ។';
-                        status.textContent = currentLanguage === 'en' ? 'Response received!' : 'បានទទួលចម្លើយ!';
-                    }, 1500);
-                }, 3000);
+                    status.textContent = 'Question processed!';
+                    status.style.color = '#4CAF50';
+                    response.style.display = 'block';
+                }, 2000);
             }
         }
 
-        // FAQ toggle
-        function toggleFAQ(num) {
-            const answer = document.getElementById(`faq-${num}`);
-            answer.classList.toggle('show');
-        }
+        function toggleFaq(element) {
+            const wasActive = element.classList.contains('active');
 
-        // Initialize
-        window.addEventListener('load', function () {
-            loadWeather();
-        });
+            // Close all FAQs
+            document.querySelectorAll('.faq-item').forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // Open clicked FAQ if it wasn't active
+            if (!wasActive) {
+                element.classList.add('active');
+            }
+        }
     </script>
 </body>
 
